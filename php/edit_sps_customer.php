@@ -19,8 +19,11 @@ if (isset($_POST['update'])) {
   $c_number          = $_POST['c_number'];
   $c_position        = $_POST['c_position'];
   $w_status          = $_POST['w_status'];
+  $loan_amt          = $_POST["amount"];
+  $loan_pay          = $_POST["loan_pay"];
+  $loan_bal          = $_POST["loan_bal"];
 
-  $query= "UPDATE customer_info SET category='$category', p_address='$p_address', p_address='$m_address', t_number='$t_number', id_card='$id_card', mother='$mother', father ='$father', spouse='$spouse', c_person = '$c_person', contact = '$contact', s_number = '$s_number', c_affiliated = '$c_affiliated', c_address = '$c_address', c_number = '$c_number', c_position = '$c_position', w_status = '$w_status' WHERE customer_id='$update_id'";
+  $query= "UPDATE customer_cred SET category='$category', p_address='$p_address', p_address='$m_address', t_number='$t_number', id_card='$id_card', mother='$mother', father ='$father', spouse='$spouse', c_person = '$c_person', contact = '$contact', s_number = '$s_number', c_affiliated = '$c_affiliated', c_address = '$c_address', c_number = '$c_number', c_position = '$c_position', w_status = '$w_status' WHERE customer_id='$update_id'";
 
   $query_run = mysqli_query($config, $query);
 
@@ -32,5 +35,11 @@ if (isset($_POST['update'])) {
     echo '<script> alert("ERROR: Data Not Updated!");
     window.location.href="../admin/sps.php";</script>';
   }
+
+  $query1= "UPDATE loan_info SET payment_details='$loan_pay', remaining_balance='$loan_bal' WHERE customer_id='$update_id'";
+  $query_run1 = mysqli_query($config, $query1);
+
+  $query2= "UPDATE loan_type SET loan_amount='$loan_amt' WHERE loan_id='$update_id'";
+  $query_run2 = mysqli_query($config, $query2);
 }
 ?>

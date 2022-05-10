@@ -4,7 +4,7 @@ include 'database.php';
 
 $id = $_GET['id'];
 
-$del = mysqli_query($config,"delete from customer_info where customer_id = '$id'");
+$del = mysqli_query($config,"delete from customer_cred where customer_id = '$id'");
 
 if($del)
 {

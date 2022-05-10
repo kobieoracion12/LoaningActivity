@@ -15,7 +15,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	$password = mysqli_real_escape_string($config, $password);
 
 
-	$sql = "INSERT INTO acc_info (email, password) VALUES ('$email', '$password')";
+	$sql = "INSERT INTO acc_cred (email, password) VALUES ('$email', '$password')";
 	$result = mysqli_query($config, $sql);
 
 	if($result) {

@@ -1,5 +1,5 @@
 <?php
-include_once("database.php");
+include_once("../php/database.php");
 
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 	$lname = $_POST["lname"];
@@ -21,26 +21,24 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	$account = "INSERT INTO acc_cred (email, password) VALUES ('$email', '$password')";
 
 	if(mysqli_query($config, $account)) {
-		//header("Location: ../admin/account.php?msg=success");
-
 
 		$id = mysqli_insert_id($config);
 
-		$sql = "INSERT INTO user_info (acc_no, name, position, user_bday, user_mobile, user_age, user_address, user_gender, user_edu, user_status) VALUES (LAST_INSERT_ID(), '$fullname', '$type', '$bday', '$mnumber', '$age', '$address', '$gender', '$edu', '$civil')";
+		$sql = "INSERT INTO user_info (acc_no, name, position, user_bday, user_mobile, user_age, user_address, user_gender, user_edu, user_status) VALUES ('$id', '$fullname', '$type', '$bday', '$mnumber', '$age', '$address', '$gender', '$edu', '$civil')";
 
 		if(mysqli_query($config, $sql)) {
-			header("Location: ../admin/account.php?msg=success");
+			header("Location: account.php?msg=success");
 		}
 		else {
 			echo ("Error description: " . $config -> error);
-			//header("Location: ../admin/add_costumer.php?msg=error");
+			//header("Location: account.php?msg=error");
 		}
 
 		
 	}
 	else {
 		echo ("Error description: " . $config -> error);
-		//header("Location: ../admin/add_costumer.php?msg=error");
+		//header("Location: account.php?msg=error");
 	}
 
 

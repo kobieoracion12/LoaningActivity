@@ -211,7 +211,7 @@ input::placeholder {
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#modal-det"><i class="fa fa-user"></i> My Profile</a>
 
                             <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>
 
@@ -276,19 +276,26 @@ input::placeholder {
                                     <div class="bg-gray px-4 py-2 bg-light">
                                       <p class="h5 mb-0 py-1">Recent</p>
                                     </div>
-
+                                    
                                     <div class="messages-box">
                                       <div class="list-group rounded-0">
+                                        <?php
+                                        $chatUser = mysqli_query($config, "SELECT * FROM user_info WHERE acc_no != '{$_SESSION['acc_no']}'");
+                                        while($data = mysqli_fetch_array($chatUser)){
+                                        ?>
                                         <a class="list-group-item list-group-item-action text-white rounded-0">
                                           <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
                                             <div class="media-body ml-4">
                                               <div class="d-flex align-items-center justify-content-between mb-1">
-                                                <h6 class="mb-0 text-dark">Jason Doe</h6><small class="small font-weight-bold">25 Dec</small>
+                                                <h6 class="mb-0 text-dark"><?php echo $data['name']?></h6><small class="small font-weight-bold">25 Dec</small>
                                               </div>
-                                              <p class="font-italic mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                                              <p></p>
                                             </div>
                                           </div>
                                         </a>
+                                        <?php
+                                        }
+                                        ?>
                                       </div>
                                     </div>
                                   </div>
@@ -299,14 +306,14 @@ input::placeholder {
                                   <div class="px-4 py-5 chat-box bg-white">
 
                                     <!-- Sender Message-->
-                                    <!-- <div class="media w-50 mb-3"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
+                                    <div class="media w-50 mb-3"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
                                       <div class="media-body ml-3">
                                         <div class="bg-light rounded py-2 px-3 mb-2">
                                           <p class="text-small mb-0 text-muted">Test, which is a new approach</p>
                                         </div>
                                         <p class="small text-muted">12:00 PM | Aug 13</p>
                                       </div>
-                                    </div> -->
+                                    </div>
 
                                     <!-- Reciever Message-->
                                     <?php
@@ -395,7 +402,39 @@ input::placeholder {
         })(jQuery);
     </script> -->
 
+<!--Details Modal-->
+  <div class="modal fade" id="modal-det">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3><b>Account Details</b></h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+        <div class="modal-body">
+          <form action="edit_users.php" method="post">
+            <fieldset id="tableFieldset" disabled>
+              <div class="mb-3">
+                <?php
+                $records = mysqli_query($config, "select * from user_info where acc_no = '{$_SESSION['uid']}'");
 
+                $data = mysqli_fetch_array($records);
+                ?>
+                <label class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" value="<?php echo $data['name'] ?>" placeholder="Enter First Name">
+                <label class="form-label">Position</label>
+                <input type="text" name="position" class="form-control" value="<?php echo $data['position'] ?>" placeholder="Enter Last Name">
+                <label class="form-label">Contact No.</label>
+                <input type="text" name="user_mobile" class="form-control" value="<?php echo $data['user_mobile'] ?>" placeholder="Enter Last Name">
+                <br>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 

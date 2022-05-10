@@ -9,7 +9,9 @@ if (!isset($_SESSION["position"]) || $_SESSION["position"] != 'Staff') {
   header("location: ../login.php");
   exit;
 }
+require_once "../php/database.php";
 ?>
+
 <!doctype html>
 <html class="no-js" lang="en">
 <head>
@@ -104,9 +106,6 @@ input::placeholder {
                      <li class="active">
                         <a href="#"> <i class="menu-icon fa fa-envelope"></i>Chat</a>
                     </li>
-                   <!--  <li>
-                        <a href="account.php"> <i class="menu-icon fa fa-users"></i>Account</a>
-                    </li> -->
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
@@ -209,7 +208,7 @@ input::placeholder {
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#modal-det"><i class="fa fa-user"></i> My Profile</a>
 
                             <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>
 
@@ -274,143 +273,34 @@ input::placeholder {
                                     <div class="bg-gray px-4 py-2 bg-light">
                                       <p class="h5 mb-0 py-1">Recent</p>
                                     </div>
-
+                                    
                                     <div class="messages-box">
                                       <div class="list-group rounded-0">
-                                        <a class="list-group-item list-group-item-action active text-white rounded-0">
+                                        <?php
+                                        $chatUser = mysqli_query($config, "SELECT * FROM user_info WHERE acc_no != '{$_SESSION['acc_no']}'");
+                                        while($data = mysqli_fetch_array($chatUser)){
+                                        ?>
+                                        <a class="list-group-item list-group-item-action text-white rounded-0">
                                           <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
                                             <div class="media-body ml-4">
                                               <div class="d-flex align-items-center justify-content-between mb-1">
-                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">25 Dec</small>
+                                                <h6 class="mb-0 text-dark"><?php echo $data['name']?></h6><small class="small font-weight-bold">25 Dec</small>
                                               </div>
-                                              <p class="font-italic mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                                              <p></p>
                                             </div>
                                           </div>
                                         </a>
-
-                                        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                          <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                            <div class="media-body ml-4">
-                                              <div class="d-flex align-items-center justify-content-between mb-1">
-                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">14 Dec</small>
-                                              </div>
-                                              <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur. incididunt ut labore.</p>
-                                            </div>
-                                          </div>
-                                        </a>
-
-                                        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                          <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                            <div class="media-body ml-4">
-                                              <div class="d-flex align-items-center justify-content-between mb-1">
-                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">9 Nov</small>
-                                              </div>
-                                              <p class="font-italic text-muted mb-0 text-small">consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                            </div>
-                                          </div>
-                                        </a>
-
-                                        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                          <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                            <div class="media-body ml-4">
-                                              <div class="d-flex align-items-center justify-content-between mb-1">
-                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">18 Oct</small>
-                                              </div>
-                                              <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                            </div>
-                                          </div>
-                                        </a>
-
-                                        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                          <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                            <div class="media-body ml-4">
-                                              <div class="d-flex align-items-center justify-content-between mb-1">
-                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">17 Oct</small>
-                                              </div>
-                                              <p class="font-italic text-muted mb-0 text-small">consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                            </div>
-                                          </div>
-                                        </a>
-
-                                        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                          <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                            <div class="media-body ml-4">
-                                              <div class="d-flex align-items-center justify-content-between mb-1">
-                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">2 Sep</small>
-                                              </div>
-                                              <p class="font-italic text-muted mb-0 text-small">Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                            </div>
-                                          </div>
-                                        </a>
-
-                                        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                          <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                            <div class="media-body ml-4">
-                                              <div class="d-flex align-items-center justify-content-between mb-1">
-                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">30 Aug</small>
-                                              </div>
-                                              <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                            </div>
-                                          </div>
-                                        </a>
-
-                                        <a href="#" class="list-group-item list-group-item-action list-group-item-light rounded-0">
-                                          <div class="media"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                            <div class="media-body ml-4">
-                                              <div class="d-flex align-items-center justify-content-between mb-3">
-                                                <h6 class="mb-0">Jason Doe</h6><small class="small font-weight-bold">21 Aug</small>
-                                              </div>
-                                              <p class="font-italic text-muted mb-0 text-small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.</p>
-                                            </div>
-                                          </div>
-                                        </a>
-
+                                        <?php
+                                        }
+                                        ?>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
+
                                 <!-- Chat Box-->
                                 <div class="col-7 px-0">
                                   <div class="px-4 py-5 chat-box bg-white">
-                                    <!-- Sender Message-->
-                                    <div class="media w-50 mb-3"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                      <div class="media-body ml-3">
-                                        <div class="bg-light rounded py-2 px-3 mb-2">
-                                          <p class="text-small mb-0 text-muted">Test which is a new approach all solutions</p>
-                                        </div>
-                                        <p class="small text-muted">12:00 PM | Aug 13</p>
-                                      </div>
-                                    </div>
-
-                                    <!-- Reciever Message-->
-                                    <div class="media w-50 ml-auto mb-3">
-                                      <div class="media-body">
-                                        <div class="bg-primary rounded py-2 px-3 mb-2">
-                                          <p class="text-small mb-0 text-white">Test which is a new approach to have all solutions</p>
-                                        </div>
-                                        <p class="small text-muted">12:00 PM | Aug 13</p>
-                                      </div>
-                                    </div>
-
-                                    <!-- Sender Message-->
-                                    <div class="media w-50 mb-3"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
-                                      <div class="media-body ml-3">
-                                        <div class="bg-light rounded py-2 px-3 mb-2">
-                                          <p class="text-small mb-0 text-muted">Test, which is a new approach to have</p>
-                                        </div>
-                                        <p class="small text-muted">12:00 PM | Aug 13</p>
-                                      </div>
-                                    </div>
-
-                                    <!-- Reciever Message-->
-                                    <div class="media w-50 ml-auto mb-3">
-                                      <div class="media-body">
-                                        <div class="bg-primary rounded py-2 px-3 mb-2">
-                                          <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
-                                        </div>
-                                        <p class="small text-muted">12:00 PM | Aug 13</p>
-                                      </div>
-                                    </div>
 
                                     <!-- Sender Message-->
                                     <div class="media w-50 mb-3"><img src="https://bootstrapious.com/i/snippets/sn-chat/avatar.svg" alt="user" width="50" class="rounded-circle">
@@ -423,23 +313,33 @@ input::placeholder {
                                     </div>
 
                                     <!-- Reciever Message-->
+                                    <?php
+                                        $sent_message = mysqli_query($config, "SELECT * FROM chat_table");
+
+                                        while($messages = mysqli_fetch_array($sent_message)) {
+                                    ?>
+
                                     <div class="media w-50 ml-auto mb-3">
                                       <div class="media-body">
                                         <div class="bg-primary rounded py-2 px-3 mb-2">
-                                          <p class="text-small mb-0 text-white">Apollo University, Delhi, India Test</p>
+                                          <p class="text-small mb-0 text-white"><?php echo $messages['sent_message'] ?></p>
                                         </div>
-                                        <p class="small text-muted">12:00 PM | Aug 13</p>
+                                        <p class="small text-muted"><?php echo date('g:i a | F j', strtotime($messages['date_sent']))?></p>
                                       </div>
                                     </div>
+
+                                    <?php
+                                        }
+                                    ?>
 
                                   </div>
 
                                   <!-- Typing area -->
-                                  <form action="#" class="bg-light">
+                                  <form action="../php/send-message.php" method="post" class="bg-light">
                                     <div class="input-group">
-                                      <input type="text" placeholder="Type a message" aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light">
+                                      <input type="text" id="message-box" name="message-box" placeholder="Type a message" aria-describedby="button-addon2" class="form-control rounded-0 border-0 py-4 bg-light">
                                       <div class="input-group-append">
-                                        <button id="button-addon2" type="submit" class="btn btn-link"> <i class="fa fa-paper-plane"></i></button>
+                                        <button id="send-txt" type="submit" class="btn btn-link"> <i class="fa fa-paper-plane"></i></button>
                                       </div>
                                     </div>
                                   </form>
@@ -499,7 +399,39 @@ input::placeholder {
         })(jQuery);
     </script> -->
 
+<!--Details Modal-->
+  <div class="modal fade" id="modal-det">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3><b>Account Details</b></h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+        <div class="modal-body">
+          <form action="edit_users.php" method="post">
+            <fieldset id="tableFieldset" disabled>
+              <div class="mb-3">
+                <?php
+                $records = mysqli_query($config, "select * from user_info where acc_no = '{$_SESSION['uid']}'");
 
+                $data = mysqli_fetch_array($records);
+                ?>
+                <label class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" value="<?php echo $data['name'] ?>" placeholder="Enter First Name">
+                <label class="form-label">Position</label>
+                <input type="text" name="position" class="form-control" value="<?php echo $data['position'] ?>" placeholder="Enter Last Name">
+                <label class="form-label">Contact No.</label>
+                <input type="text" name="user_mobile" class="form-control" value="<?php echo $data['user_mobile'] ?>" placeholder="Enter Last Name">
+                <br>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 

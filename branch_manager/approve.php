@@ -1,5 +1,5 @@
 <?php
-include_once("database.php");
+include_once("../php/database.php");
 
 if (isset($_POST['approve'])) {
   $viewid1         = $_POST['viewid1'];
@@ -11,11 +11,11 @@ if (isset($_POST['approve'])) {
 
 
    if ($query_run) {
-    header('Location: ../admin/account.php');
+    header('Location: account.php');
   }
   else{
     echo '<script> alert("ERROR: Data Not Updated!");
-    window.location.href="../admin/account.php";</script>';
+    window.location.href="account.php";</script>';
   }
 }
 ?>

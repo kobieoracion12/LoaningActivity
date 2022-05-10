@@ -209,7 +209,7 @@ input::placeholder {
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#modal-det"><i class="fa fa-user"></i> My Profile</a>
 
                             <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>
 
@@ -283,18 +283,20 @@ input::placeholder {
                                     <tbody>
                                         <?php
                                         require_once "../php/database.php";
-                                        $records = mysqli_query($config, "select * from customer_info where category = 'sps'");
-                                        while ($data = mysqli_fetch_array($records)) {
+                                        $records1 = mysqli_query($config, "select * from customer_cred where category = 'sps'");
+                                        $records2 = mysqli_query($config, "select * from loan_info,customer_cred where (loan_info.customer_id = customer_cred.customer_id) and (customer_cred.category = 'sps')");
+                                        $records3 = mysqli_query($config, "select * from loan_type,customer_cred where (loan_type.loan_id = customer_cred.customer_id) and (customer_cred.category = 'sps')");
+                                        while ($data = mysqli_fetch_array($records1) AND $data2 = mysqli_fetch_array($records2) AND $data3 = mysqli_fetch_array($records3)) {
                                         ?>
                                         <tr>
                                             <td style="display: none;"><?php echo $data["customer_id"]; ?></td>
                                             <td><?php echo $data["first_name"]." ".$data["last_name"] ?></td>
                                             <td><?php echo $data["p_address"]; ?></td>
                                             <td><?php echo $data["t_number"]; ?></td>
-                                            <td><?php echo $data["category"]; ?></td>
-                                            <td><?php echo $data["birth_date"]; ?></td>
-                                            <td><?php echo $data["category"]; ?></td>
-                                            <td><?php echo $data["category"]; ?></td>
+                                            <td><?php echo $data2["account"]; ?></td>
+                                            <td><?php echo $data3["loan_amount"]; ?></td>
+                                            <td><?php echo $data2["payment_details"]; ?></td>
+                                            <td><?php echo $data2["remaining_balance"]; ?></td>
                                             <td style="display: none;"><?php echo $data["id_card"]; ?></td>
                                             <td style="display: none;"><?php echo $data["mother"]; ?></td>
                                             <td style="display: none;"><?php echo $data["c_person"]; ?></td>
@@ -307,10 +309,12 @@ input::placeholder {
                                             <td style="display: none;"><?php echo $data["c_number"]; ?></td>
                                             <td style="display: none;"><?php echo $data["c_position"]; ?></td>
                                             <td style="display: none;"><?php echo $data["w_status"]; ?></td>
+                                            <td style="display: none;"><?php echo $data["birth_date"]; ?></td>
+                                            <td style="display: none;"><?php echo $data["category"]; ?></td>
 
                                             <td>
-                                                 <button type="submit" class="btn btn-primary btn-sm viewbtn" data-toggle="modal" data-target="#view"><i class="fa fa-eye"></i> </button>
-                                                 <button type="submit" class="btn btn-primary btn-sm updatebtn" data-toggle="modal" data-target="#update"><i class="fa fa-refresh"></i>
+                                                 <button type="submit" class="btn btn-primary btn-sm viewbtn" data-bs-toggle="modal" data-bs-target="#view"><i class="fa fa-eye"></i> </button>
+                                                 <button type="submit" class="btn btn-primary btn-sm updatebtn" data-bs-toggle="modal" data-bs-target="#update"><i class="fa fa-refresh"></i>
                                                  </button>
                                                  <a class='btn btn-primary btn-sm'  title="Delete Student" onClick="javascript: return confirm('Please confirm deletion');" href='../php/del_sps_customer.php?id=<?php echo $data['customer_id']; ?>"'><i class="fa fa-trash"></i></a>
                                             </td>
@@ -393,7 +397,7 @@ input::placeholder {
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="mediumModalLabel">Costumer Information</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -401,7 +405,7 @@ input::placeholder {
                                  <div class="card-header">
                                     <strong class="card-title">Personal Information</strong>
                                         </div><br/>
-                                        <div class="row">
+                                        <div class="row"><br/>
                                              
                             <div class="col-sm-6">
                                 <aside class="profile-nav alt">
@@ -411,7 +415,7 @@ input::placeholder {
                                                 <a href="#">
                                                     <img class="align-self-center rounded-circle mr-3" style="width:125px; height:135px;" alt="" src="images/admin.jpg">
                                                 </a>
-                                                <div class="media-body">
+                                                <div class="media-body"><br/>
                                                     <input type="text" id="name" style="border: none;" class="text-light bg-dark" readonly>
                                                     <p><input type="text" id="c_no" style="border: none;" class="text-light bg-dark" readonly><br/><input type="text" id="b_day" style="border: none;" class="text-light bg-dark" readonly></p>
                                                 </div>
@@ -423,38 +427,41 @@ input::placeholder {
                             </div>
                                          <div class="col-sm-6">
                                             <input type="hidden" name="update_id" id="update_id">
-                                             <input id="category" name="category" type="text" class="form-control" value="ATM"><br/>
-                                              <input id="p_address" name="p_address" type="text" class="form-control" value="Permanent Address"><br/>
+                                            <label for="" class="control-label mb-1">Loan Category</label>
+                                             <input id="category" name="category" type="text" class="form-control" value="ATM">
+                                             <label for="" class="control-label mb-1">Permanent Address</label>
+                                              <input id="p_address" name="p_address" type="text" class="form-control" value="Permanent Address">
+                                              <label for="" class="control-label mb-1">Mailing Address</label>
                                                <input id="m_address" name="m_address" type="text" class="form-control" value="Mailing Address">
                                             </div>                         
                                         </div>
 
                                         <div class="row">
                                                      <div class="col-sm-6">
-                                                        <label></label>
+                                                          <label for="" class="control-label mb-1">Mobile Number</label>
                                                           <input id="t_number" name="t_number" type="text" class="form-control" placeholder="Telephone/Mobile Number here!">
                                                     </div>
                                                      <div class="col-sm-6">
-                                                        <label></label>
+                                                          <label for="" class="control-label mb-1">ID Card</label>
                                                           <input id="id_card" name="id_card" type="text" class="form-control" placeholder="ID Card Number here!">
                                                     </div>
                                         </div>
 
                                         <div class="row">
                                                     <div class="col-sm-6">
-                                                          <label></label>
+                                                          <label for="" class="control-label mb-1">Mother Name</label>
                                                           <input id="mother" name="mother" type="text" class="form-control" placeholder="Mother's Name here!">
-                                                          <label></label>
+                                                          <label for="" class="control-label mb-1">Father Name</label>
                                                           <input id="father" name="father" type="text" class="form-control" placeholder="Father's Name here!">
-                                                          <label></label>
+                                                          <label for="" class="control-label mb-1">Spouse Name</label>
                                                           <input id="spouse" name="spouse" type="text" class="form-control" placeholder="Name of Spouse here!">
                                                     </div>
                                                     <div class="col-sm-6">
-                                                          <label></label>
+                                                          <label for="" class="control-label mb-1">Contact Person</label>
                                                           <input id="c_person" name="c_person" type="text" class="form-control" placeholder="Contact Person here!">
-                                                          <label></label>
+                                                          <label for="" class="control-label mb-1">Contact Number</label>
                                                           <input id="contact" name="contact" type="text" class="form-control" placeholder="Contact Number here!">
-                                                          <label></label>
+                                                          <label for="" class="control-label mb-1">Spouse Number</label>
                                                           <input id="s_number" name="s_number" type="text" class="form-control" placeholder="Spouse Contact Number here!">
                                                     </div>  
                                         </div><br/>
@@ -464,32 +471,50 @@ input::placeholder {
                                         </div><br/>
                                         <div class="row">
                                                     <div class="col-sm-4">
-                                                          <label></label>
+                                                          <label for="" class="control-label mb-1">Company Affiliated</label>
                                                           <input id="c_affiliated" name="c_affiliated" type="text" class="form-control" placeholder="Lastname here!">
                                                     </div>
                                                      <div class="col-sm-4">
-                                                          <label></label>
+                                                          <label for="" class="control-label mb-1">Company Address</label>
                                                           <input id="c_address" name="c_address" type="text" class="form-control" placeholder="Firstname here!">
                                                     </div>
                                                      <div class="col-sm-4">
-                                                          <label></label>
+                                                          <label for="" class="control-label mb-1">Company Number</label>
                                                           <input id="c_number" name="c_number" type="text" class="form-control" placeholder="Middlename here!">
                                                     </div>
                                         </div>
 
                                          <div class="row">
                                                     <div class="col-sm-6">
-                                                          <label></label>
+                                                          <label for="" class="control-label mb-1">Company Position</label>
                                                           <input id="c_position" name="c_position" type="text" class="form-control" placeholder="Permanent Address here!">
                                                     </div>
                                                      <div class="col-sm-6">
-                                                          <label></label>
+                                                          <label for="" class="control-label mb-1">Work Status</label>
                                                           <input id="w_status" name="w_status" type="text" class="form-control" placeholder="Email Address here!">
+                                                    </div>
+                                        </div><br/>
+
+                                        <div class="card-header">
+                                            <strong class="card-title">Loans</strong>
+                                        </div><br/>
+                                        <div class="row">
+                                                    <div class="col-sm-4">
+                                                          <label for="" class="control-label mb-1">Loan Amount</label>
+                                                          <input id="amount" name="amount" type="text" class="form-control" placeholder="Amount here!">
+                                                    </div>
+                                                     <div class="col-sm-4">
+                                                          <label for="" class="control-label mb-1">Loan Payment</label>
+                                                          <input id="loan_pay" name="loan_pay" type="text" class="form-control" placeholder="Payment here!">
+                                                    </div>
+                                                     <div class="col-sm-4">
+                                                          <label for="" class="control-label mb-1">Loan Balance</label>
+                                                          <input id="loan_bal" name="loan_bal" type="text" class="form-control" placeholder="Balance here!">
                                                     </div>
                                         </div><br/>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
@@ -503,7 +528,7 @@ input::placeholder {
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="mediumModalLabel">Costumer Information</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -522,8 +547,8 @@ input::placeholder {
                                                     <img class="align-self-center rounded-circle mr-3" style="width:125px; height:135px;" alt="" src="images/admin.jpg">
                                                 </a>
                                                 <div class="media-body">
-                                                    <input type="text" id="name" style="border: none;" class="text-light bg-dark" readonly>
-                                                    <p><input type="text" id="c_no" style="border: none;" class="text-light bg-dark" readonly><br/><input type="text" id="b_day" style="border: none;" class="text-light bg-dark" readonly></p>
+                                                    <input type="text" id="name1" style="border: none;" class="text-light bg-dark" readonly>
+                                                    <p><input type="text" id="c_no1" style="border: none;" class="text-light bg-dark" readonly><br/><input type="text" id="b_day1" style="border: none;" class="text-light bg-dark" readonly></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -603,28 +628,62 @@ input::placeholder {
                                         </div><br/>
                                         <div class="row">
                                                     <div class="col-sm-4">
-                                                          <label></label>
-                                                          <input id="amount" name="amount" type="text" class="form-control" placeholder="Amount here!">
+                                                          <label for="" class="control-label mb-1">Loan Amount</label>
+                                                          <input id="amount1" name="amount" type="text" class="form-control" placeholder="Amount here!">
                                                     </div>
                                                      <div class="col-sm-4">
-                                                          <label></label>
-                                                          <input id="payment" name="payment" type="text" class="form-control" placeholder="Payment here!">
+                                                          <label for="" class="control-label mb-1">Loan Payment</label>
+                                                          <input id="loan_pay1" name="loan_pay" type="text" class="form-control" placeholder="Payment here!">
                                                     </div>
                                                      <div class="col-sm-4">
-                                                          <label></label>
-                                                          <input id="balance" name="balance" type="text" class="form-control" placeholder="Balance here!">
+                                                          <label for="" class="control-label mb-1">Loan Balance</label>
+                                                          <input id="loan_bal1" name="loan_bal" type="text" class="form-control" placeholder="Balance here!">
                                                     </div>
                                         </div><br/>
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" name="update" class="btn btn-secondary">Save</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
                 </div>
 </form>
 <!-- end modal update -->
+
+<!--Details Modal-->
+  <div class="modal fade" id="modal-det">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3><b>Account Details</b></h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+        <div class="modal-body">
+          <form action="edit_users.php" method="post">
+            <fieldset id="tableFieldset" disabled>
+              <div class="mb-3">
+                <?php
+                $records = mysqli_query($config, "select * from user_info where acc_no = '{$_SESSION['uid']}'");
+
+                $data = mysqli_fetch_array($records);
+                ?>
+                <label class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" value="<?php echo $data['name'] ?>" placeholder="Enter First Name">
+                <label class="form-label">Position</label>
+                <input type="text" name="position" class="form-control" value="<?php echo $data['position'] ?>" placeholder="Enter Last Name">
+                <label class="form-label">Contact No.</label>
+                <input type="text" name="user_mobile" class="form-control" value="<?php echo $data['user_mobile'] ?>" placeholder="Enter Last Name">
+                <br>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
   <script src="../js/bootstrap.js"></script>
@@ -646,8 +705,8 @@ input::placeholder {
         console.log(data);
         $('#update_id').val(data[0]);
         $('#name').val(data[1]);
-        $('#category').val(data[4]);
-        $('#b_day').val(data[5]);
+        $('#category').val(data[21]);
+        $('#b_day').val(data[20]);
         $('#p_address').val(data[2]);
         $('#m_address').val(data[2]);
         $('#t_number').val(data[3]);
@@ -664,6 +723,9 @@ input::placeholder {
         $('#c_number').val(data[17]);
         $('#c_position').val(data[18]);
         $('#w_status').val(data[19]);
+        $('#amount').val(data[5]);
+        $('#loan_pay').val(data[6]);
+        $('#loan_bal').val(data[7]);
       })
     });
 
@@ -684,8 +746,8 @@ input::placeholder {
         console.log(data);
        $('#update_id1').val(data[0]);
         $('#name1').val(data[1]);
-        $('#category1').val(data[4]);
-        $('#b_day1').val(data[5]);
+        $('#category1').val(data[21]);
+        $('#b_day1').val(data[20]);
         $('#p_address1').val(data[2]);
         $('#m_address1').val(data[2]);
         $('#t_number1').val(data[3]);
@@ -702,6 +764,9 @@ input::placeholder {
         $('#c_number1').val(data[17]);
         $('#c_position1').val(data[18]);
         $('#w_status1').val(data[19]);
+        $('#amount1').val(data[5]);
+        $('#loan_pay1').val(data[6]);
+        $('#loan_bal1').val(data[7]);
       })
     });
 </script>

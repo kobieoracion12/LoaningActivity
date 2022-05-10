@@ -1,11 +1,11 @@
 <?php
 include_once("database.php");
 
-if (isset($_POST['approve'])) {
-  $viewid1         = $_POST['viewid1'];
-  $status = 'Approved';
+if (isset($_POST['reject'])) {
+  $viewid2         = $_POST['viewid2'];
+  $status = 'Declined';
 
-  $query= "UPDATE acc_cred SET acc_status='$status'WHERE acc_no='$viewid1'";
+  $query= "UPDATE acc_cred SET acc_status='$status'WHERE acc_no='$viewid2'";
 
   $query_run = mysqli_query($config, $query);
 

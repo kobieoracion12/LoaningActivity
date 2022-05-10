@@ -9,6 +9,7 @@ if(isset($_SESSION['uid'])) {
       $_SESSION['name'] = $rows['name'];
       $_SESSION['position'] = $rows['position'];
       $_SESSION["loggedin"] = true;
+      $_SESSION['acc_no'] = $rows['acc_no'];
    }
 }
 

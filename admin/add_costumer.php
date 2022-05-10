@@ -210,7 +210,7 @@ input::placeholder {
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#modal-det"><i class="fa fa-user"></i> My Profile</a>
 
                             <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>
 
@@ -265,20 +265,16 @@ input::placeholder {
                             <div class="row">
                                         <div class="col-sm-3">
                                               <label for="lname" class="control-label mb-1">Lastname*</label>
-                                              <input id="lname" name="lname" type="text" class="form-control" placeholder="Lastname here!">
+                                              <input id="lname" name="lname" type="text" class="form-control" placeholder="Lastname">
                                         </div>
                                          <div class="col-sm-3">
                                               <label for="fname" class="control-label mb-1">Firstname</label>
-                                              <input id="fname" name="fname" type="text" class="form-control" placeholder="Firstname here!">
+                                              <input id="fname" name="fname" type="text" class="form-control" placeholder="Firstname">
                                         </div>
                                          <div class="col-sm-3">
                                               <label for="mname" class="control-label mb-1">Middle Name</label>
-                                              <input id="mname" name="mname" type="text" class="form-control" placeholder="Middlename here!">
+                                              <input id="mname" name="mname" type="text" class="form-control" placeholder="Middlename">
                                         </div>
-                                        <!--  <div class="col-sm-3">
-                                              <label for="mname" class="control-label mb-1">Catteg</label>
-                                              <input id="mname" name="mname" type="text" class="form-control" placeholder="Middlename here!">
-                                        </div> -->
 
                                              <div class="col-sm-3">
                                                 <label for="select" class="control-label mb-1">Categories</label>
@@ -296,47 +292,47 @@ input::placeholder {
                             <div class="row">
                                         <div class="col-sm-6">
                                               <label for="p_address" class="control-label mb-1">Permanent Address</label>
-                                              <input id="p_address" name="p_address" type="text" class="form-control" placeholder="Permanent Address here!">
+                                              <input id="p_address" name="p_address" type="text" class="form-control" placeholder="Permanent Address">
                                         </div>
                                          <div class="col-sm-6">
                                               <label for="e_address" class="control-label mb-1">Email Address</label>
-                                              <input id="e_address" name="e_address" type="text" class="form-control" placeholder="Email Address here!">
+                                              <input id="e_address" name="e_address" type="text" class="form-control" placeholder="Email Address">
                                         </div>
                             </div>
 
                             <div class="row">
                                         <div class="col-sm-4">
                                               <label for="bday" class="control-label mb-1">Date of Birth</label>
-                                              <input id="bday" name="bday" type="date" class="form-control" placeholder="Birthday here!">
+                                              <input id="bday" name="bday" type="date" class="form-control" placeholder="Birthday">
                                         </div>
                                          <div class="col-sm-4">
                                               <label for="t_number" class="control-label mb-1">Telephone/Mobile Number</label>
-                                              <input id="t_number" name="t_number" type="text" class="form-control" placeholder="Telephone/Mobile Number here!">
+                                              <input id="t_number" name="t_number" type="text" class="form-control" placeholder="Telephone/Mobile Number">
                                         </div>
                                          <div class="col-sm-4">
                                               <label for="id_card" class="control-label mb-1">ID Card Number</label>
-                                              <input id="id_card" name="id_card" type="text" class="form-control" placeholder="ID Card Number here!">
+                                              <input id="id_card" name="id_card" type="text" class="form-control" placeholder="ID Card Number">
                                         </div>
                             </div>
 
                             <div class="row">
                                         <div class="col-sm-6">
                                               <label for="mother" class="control-label mb-1">Mother's Name</label>
-                                              <input id="mother" name="mother" type="text" class="form-control" placeholder="Mother's Name here!">
+                                              <input id="mother" name="mother" type="text" class="form-control" placeholder="Mother's Name">
                                                <label for="father" class="control-label mb-1">Father's Name</label>
-                                              <input id="father" name="father" type="text" class="form-control" placeholder="Father's Name here!">
+                                              <input id="father" name="father" type="text" class="form-control" placeholder="Father's Name">
                                                <label for="spouse" class="control-label mb-1">Name of Spouse</label>
-                                              <input id="spouse" name="spouse" type="text" class="form-control" placeholder="Name of Spouse here!">
+                                              <input id="spouse" name="spouse" type="text" class="form-control" placeholder="Name of Spouse">
                                         </div>
                                         <div class="col-sm-6">
                                               <label for="m_contact" class="control-label mb-1">Contact Person</label>
-                                              <input id="m_contact" name="m_contact" type="text" class="form-control" placeholder="Contact Person here!">
+                                              <input id="m_contact" name="m_contact" type="text" class="form-control" placeholder="Contact Person">
 
                                                <label for="f_contact" class="control-label mb-1">Contact Number</label>
-                                              <input id="f_contact" name="f_contact" type="text" class="form-control" placeholder="Contact Number here!">
+                                              <input id="f_contact" name="f_contact" type="text" class="form-control" placeholder="Contact Number">
 
                                                <label for="s_contact" class="control-label mb-1">Spouse Contact Number</label>
-                                              <input id="s_contact" name="s_contact" type="text" class="form-control" placeholder="Spouse Contact Number here!">
+                                              <input id="s_contact" name="s_contact" type="text" class="form-control" placeholder="Spouse Contact Number">
                                         </div>  
                             </div><br/>
 
@@ -346,26 +342,26 @@ input::placeholder {
                             <div class="row">
                                         <div class="col-sm-4">
                                               <label for="c_affiliated" class="control-label mb-1">Company Affiliated With</label>
-                                              <input id="c_affiliated" name="c_affiliated" type="text" class="form-control" placeholder="Lastname here!">
+                                              <input id="c_affiliated" name="c_affiliated" type="text" class="form-control" placeholder="Company Affiliated">
                                         </div>
                                          <div class="col-sm-4">
                                               <label for="c_address" class="control-label mb-1">Company Address</label>
-                                              <input id="c_address" name="c_address" type="text" class="form-control" placeholder="Firstname here!">
+                                              <input id="c_address" name="c_address" type="text" class="form-control" placeholder="Company Address">
                                         </div>
                                          <div class="col-sm-4">
                                               <label for="c_number" class="control-label mb-1">Company Contact Number</label>
-                                              <input id="c_number" name="c_number" type="text" class="form-control" placeholder="Middlename here!">
+                                              <input id="c_number" name="c_number" type="text" class="form-control" placeholder="Company Contact Number">
                                         </div>
                             </div>
 
                              <div class="row">
                                         <div class="col-sm-6">
                                               <label for="position" class="control-label mb-1">Position/Occupation</label>
-                                              <input id="position" name="position" type="text" class="form-control" placeholder="Permanent Address here!">
+                                              <input id="position" name="position" type="text" class="form-control" placeholder="Position/Occupation">
                                         </div>
                                          <div class="col-sm-6">
                                               <label for="w_status" class="control-label mb-1">Work Status</label>
-                                              <input id="w_status" name="w_status" type="text" class="form-control" placeholder="Email Address here!">
+                                              <input id="w_status" name="w_status" type="text" class="form-control" placeholder="Work Status">
                                         </div>
                             </div><br/>
 
@@ -374,29 +370,22 @@ input::placeholder {
                                 <strong class="card-title">Loan Type</strong>
                             </div><br/>
                             <div class="row">
-                                        <div class="col-sm-4">
-                                              <label for="" class="control-label mb-1">Loan Amount</label>
-                                              <input id="" name="" type="text" class="form-control" placeholder="Lastname here!">
-                                        </div>
-                                         <div class="col-sm-4">
-                                              <label for="" class="control-label mb-1">Company Address</label>
-                                              <input id="" name="" type="text" class="form-control" placeholder="Firstname here!">
-                                        </div>
-                                         <div class="col-sm-4">
-                                              <label for="" class="control-label mb-1">Company Contact Number</label>
-                                              <input id="" name="" type="text" class="form-control" placeholder="Middlename here!">
-                                        </div>
-                            </div>
-
-                             <div class="row">
-                                        <div class="col-sm-6">
-                                              <label for="" class="control-label mb-1">Position/Occupation</label>
-                                              <input id="" name="" type="text" class="form-control" placeholder="Permanent Address here!">
-                                        </div>
-                                         <div class="col-sm-6">
-                                              <label for="" class="control-label mb-1">Work Status</label>
-                                              <input id="" name="" type="text" class="form-control" placeholder="Email Address here!">
-                                        </div>
+                                <div class="col-sm-3">
+                                      <label for="" class="control-label mb-1">Account</label>
+                                      <input id="acc" name="acc" type="text" class="form-control" placeholder="Account">
+                                </div>
+                                 <div class="col-sm-3">
+                                      <label for="" class="control-label mb-1">Loan Amount</label>
+                                      <input id="loan_amt" name="loan_amt" type="text" class="form-control" placeholder="Loan Amount">
+                                </div>
+                                <div class="col-sm-3">
+                                      <label for="" class="control-label mb-1">Loan Payment</label>
+                                      <input id="loan_pay" name="loan_pay" type="text" class="form-control" placeholder="Loan Payment">
+                                </div>
+                                <div class="col-sm-3">
+                                      <label for="" class="control-label mb-1">Loan Balance</label>
+                                      <input id="loan_bal" name="loan_bal" type="text" class="form-control" placeholder="Loan Balance">
+                                </div>
                             </div><br/>
 
                             <div class="card-footer">
@@ -468,6 +457,39 @@ input::placeholder {
         })(jQuery);
     </script> -->
 
+<!--Details Modal-->
+  <div class="modal fade" id="modal-det">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3><b>Account Details</b></h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+        <div class="modal-body">
+          <form action="edit_users.php" method="post">
+            <fieldset id="tableFieldset" disabled>
+              <div class="mb-3">
+                <?php
+                $records = mysqli_query($config, "select * from user_info where acc_no = '{$_SESSION['uid']}'");
+
+                $data = mysqli_fetch_array($records);
+                ?>
+                <label class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" value="<?php echo $data['name'] ?>" placeholder="Enter First Name">
+                <label class="form-label">Position</label>
+                <input type="text" name="position" class="form-control" value="<?php echo $data['position'] ?>" placeholder="Enter Last Name">
+                <label class="form-label">Contact No.</label>
+                <input type="text" name="user_mobile" class="form-control" value="<?php echo $data['user_mobile'] ?>" placeholder="Enter Last Name">
+                <br>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 </body>

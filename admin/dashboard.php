@@ -175,7 +175,7 @@ require_once "../php/database.php";
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#modal-det"><i class="fa fa-user"></i> My Profile</a>
 
                             <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>
 
@@ -441,7 +441,39 @@ require_once "../php/database.php";
 
     </div>
 
+<!--Details Modal-->
+  <div class="modal fade" id="modal-det">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3><b>Account Details</b></h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+        <div class="modal-body">
+          <form action="edit_users.php" method="post">
+            <fieldset id="tableFieldset" disabled>
+              <div class="mb-3">
+                <?php
+                $records = mysqli_query($config, "select * from user_info where acc_no = '{$_SESSION['uid']}'");
 
+                $data = mysqli_fetch_array($records);
+                ?>
+                <label class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" value="<?php echo $data['name'] ?>" placeholder="Enter First Name">
+                <label class="form-label">Position</label>
+                <input type="text" name="position" class="form-control" value="<?php echo $data['position'] ?>" placeholder="Enter Last Name">
+                <label class="form-label">Contact No.</label>
+                <input type="text" name="user_mobile" class="form-control" value="<?php echo $data['user_mobile'] ?>" placeholder="Enter Last Name">
+                <br>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
         </div> <!-- .content -->

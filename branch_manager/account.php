@@ -56,7 +56,7 @@ require_once "../php/database.php";
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="dashboard.php"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                        <a href="dashboard.php"> <i class="menu-icon fa fa-dashboard"></i>Dashboard</a>
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Customer</a>
@@ -175,7 +175,7 @@ require_once "../php/database.php";
                         </a>
 
                         <div class="user-menu dropdown-menu">
-                            <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#modal-det"><i class="fa fa-user"></i> My Profile</a>
 
                             <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>
 
@@ -202,9 +202,16 @@ require_once "../php/database.php";
             </div>
         </div>
 
+        
         <div class="content mt-3">
+            <?php
+                $fetch = mysqli_query($config, "SELECT * FROM user_info");
+                $email = mysqli_query($config, "SELECT email FROM acc_cred");
+                $records = mysqli_query($config, "SELECT * FROM user_info");
 
+                while($data = mysqli_fetch_array($fetch) AND $data2 = mysqli_fetch_array($email) AND $data3 = mysqli_fetch_array($records)) {
 
+            ?>
             <div class="col-sm-6 col-lg-3">
                 <div class="card text-white bg-flat-color-1">
                     <div class="card-body pb-0">
@@ -216,172 +223,58 @@ require_once "../php/database.php";
                                         <a href="#">
                                                 <img class="align-self-center rounded-circle mr-3" style="width:85px; height:85px;" alt="" src="images/admin.jpg">
                                          </a>
+                                         
                                         <div class="media-body">
-                                            <h4 class="text-light display-6">Jim Doe</h4>
-                                            <p>Project Manager</p>
+                                            <h4 class="text-light display-6"><?php echo $data['name']?></h4>
+                                            <p><?php echo $data['position']?></p>
                                         </div>
                                     </div>
                                 </div>
 
-
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
-                                        <a href="#"> Email Address <span class="badge badge-primary pull-right"></span></a>
+                                        <a href="#"> <?php echo $data2['email']?> <span class="badge badge-primary pull-right"></span></a>
                                     </li>
                                     <li class="list-group-item">
-                                        <a href="#"> <i class="fa fa-tasks"></i> Permanent Address <span class="badge badge-danger pull-right">15</span></a>
+                                        <a href="#"> <i class="fa fa-tasks"></i> <?php echo $data['user_address']?></a>
                                     </li>
                                     <li class="list-group-item">
                                         <center>
-                                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#view"><i class="fa fa-eye"></i> </button>
-                                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#approved"><i class="fa fa-check"></i></button>
-                                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#reject"><i class="fa fa-times"></i></button>
-                                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#delete"><i class="fa fa-trash"></i></button>
+                                            <table>
+                                             <tr>
+                                                 <th style="display: none;">ID</th>
+                                             </tr>
+                                             <tr>
+                                                 <td style="display: none;"><?php echo $data3['acc_no']?></td>
+                                                 <td style="display: none;"><?php echo $data2['email']?></td>
+                                                 <td style="display: none;"><?php echo $data3['user_address']?></td>
+                                                 <td style="display: none;"><?php echo $data3['user_edu']?></td>
+                                                 <td style="display: none;"><?php echo $data3['user_mobile']?></td>
+                                                 <td style="display: none;"><?php echo $data3['user_status']?></td>
+                                                 <td style="display: none;"><?php echo $data3['user_age']?></td>
+                                                 <td style="display: none;"><?php echo $data3['user_gender']?></td>
+                                             
+                                            <td><button type="submit" class="btn btn-primary btn-sm viewbtn" data-bs-toggle="modal" data-bs-target="#view"><i class="fa fa-eye"></i> </button>
+                                            <button type="submit" class="btn btn-primary btn-sm approvebtn" data-bs-toggle="modal" data-bs-target="#approved"><i class="fa fa-check"></i></button>
+                                            <button type="submit" class="btn btn-primary btn-sm rejectbtn" data-bs-toggle="modal" data-bs-target="#reject"><i class="fa fa-times"></i></button>
+                                            <button type="submit" class="btn btn-primary btn-sm deletebtn" data-bs-toggle="modal" data-bs-target="#delete"><i class="fa fa-trash"></i></button></td>
+                                            </tr>
+                                            </table>
                                         </center>
                                     </li>
                                 </ul>
-
                             </section>
                         </aside>
                     </div>
 
                 </div>
             </div>
-            <!--/.col-->
-
-             <div class="col-sm-6 col-lg-3">
-                <div class="card text-white bg-flat-color-1">
-                    <div class="card-body pb-0">
-
-                        <aside class="profile-nav alt">
-                            <section class="card">
-                                <div class="card-header user-header alt bg-dark">
-                                    <div class="media">
-                                        <a href="#">
-                                                <img class="align-self-center rounded-circle mr-3" style="width:85px; height:85px;" alt="" src="images/admin.jpg">
-                                         </a>
-                                        <div class="media-body">
-                                            <h4 class="text-light display-6">Jim Doe</h4>
-                                            <p>Project Manager</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <a href="#">  Email Address <span class="badge badge-primary pull-right"></span></a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a href="#">  Permanent Address <span class="badge badge-danger pull-right"></span></a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <center>
-                                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#view"><i class="fa fa-eye"></i> </button>
-                                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#approved"><i class="fa fa-check"></i></button>
-                                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#reject"><i class="fa fa-times"></i></button>
-                                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#delete"><i class="fa fa-trash"></i></button>
-                                        </center>
-                                    </li>
-                                </ul>
-
-                            </section>
-                        </aside>
-                    </div>
-
-                </div>
-            </div>
-            <!--/.col-->
-
-             <div class="col-sm-6 col-lg-3">
-                <div class="card text-white bg-flat-color-1">
-                    <div class="card-body pb-0">
-
-                        <aside class="profile-nav alt">
-                            <section class="card">
-                                <div class="card-header user-header alt bg-dark">
-                                    <div class="media">
-                                        <a href="#">
-                                                <img class="align-self-center rounded-circle mr-3" style="width:85px; height:85px;" alt="" src="images/admin.jpg">
-                                         </a>
-                                        <div class="media-body">
-                                            <h4 class="text-light display-6">Jim Doe</h4>
-                                            <p>Project Manager</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <a href="#"> Email Address <span class="badge badge-primary pull-right"></span></a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a href="#">  Permanent Address <span class="badge badge-danger pull-right"></span></a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <center>
-                                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#view"><i class="fa fa-eye"></i> </button>
-                                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#approved"><i class="fa fa-check"></i></button>
-                                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#reject"><i class="fa fa-times"></i></button>
-                                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#delete"><i class="fa fa-trash"></i></button>
-                                        </center>
-                                    </li>
-                                </ul>
-
-                            </section>
-                        </aside>
-                    </div>
-
-                </div>
-            </div>
-            <!--/.col-->
-
-             <div class="col-sm-6 col-lg-3">
-                <div class="card text-white bg-flat-color-1">
-                    <div class="card-body pb-0">
-
-                        <aside class="profile-nav alt">
-                            <section class="card">
-                                <div class="card-header user-header alt bg-dark">
-                                    <div class="media">
-                                        <a href="#">
-                                                <img class="align-self-center rounded-circle mr-3" style="width:85px; height:85px;" alt="" src="images/admin.jpg">
-                                         </a>
-                                        <div class="media-body">
-                                            <h4 class="text-light display-6">Jim Doe</h4>
-                                            <p>Project Manager</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <a href="#">  Email Address <span class="badge badge-primary pull-right"></span></a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <a href="#"> Permanent Address <span class="badge badge-danger pull-right"></span></a>
-                                    </li>
-                                    <li class="list-group-item">
-                                        <center>
-                                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#view"><i class="fa fa-eye"></i> </button>
-                                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#approved"><i class="fa fa-check"></i></button>
-                                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#reject"><i class="fa fa-times"></i></button>
-                                            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#delete"><i class="fa fa-trash"></i></button>
-                                        </center>
-                                    </li>
-                                </ul>
-
-                            </section>
-                        </aside>
-                    </div>
-
-                </div>
-            </div>
-            <!--/.col-->
+            <?php
+                }
+            ?>
 
         </div> <!-- .content -->
+        
     </div><!-- /#right-panel -->
 
     <!-- Right Panel -->
@@ -419,145 +312,144 @@ require_once "../php/database.php";
 
     <!-- modal view -->
 <div class="modal fade" id="view" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="mediumModalLabel">Costumer Information</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                 <div class="card-header">
-                                    <strong class="card-title">Personal Information</strong>
-                                        </div><br/>
-                                        <div class="row">
-                                                    <div class="col-sm-6">
-                                                         
-                                <aside class="profile-nav alt">
-                                    <section class="card">
-                                        <div class="card-header user-header alt bg-dark">
-                                            <div class="media">
-                                                <a href="#">
-                                                    <img class="align-self-center rounded-circle mr-3" style="width:125px; height:135px;" alt="" src="images/admin.jpg">
-                                                </a>
-                                                <div class="media-body">
-                                                    <h2 class="text-light display-6">Jim Doe</h2>
-                                                    <p>Project Manager <br/>09304895235<br/>Birthday</p>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </section>
-                                </aside>
-                            </div>
-                                         <div class="col-sm-6">
-                                             <input id="p_address" name="p_address" type="text" class="form-control" value="Email Address"><br/>
-                                              <input id="p_address" name="p_address" type="text" class="form-control" value="Permanent Address"><br/>
-                                               <input id="p_address" name="p_address" type="text" class="form-control" value="High Educational Attainment">
-                                            </div>                         
-                                        </div>
-
-                                        <div class="row">
-                                                     <div class="col-sm-6">
-                                                        <label></label>
-                                                          <input id="t_number" name="t_number" type="text" class="form-control" placeholder="Telephone/Mobile Number here!">
-                                                          <label></label>
-                                                          <input id="status" name="status" type="text" class="form-control" placeholder="Civil Status here!">
-                                                    </div>
-                                                     <div class="col-sm-6">
-                                                        <label></label>
-                                                          <input id="age" name="age" type="text" class="form-control" placeholder="Age here!">
-                                                        <label></label>
-                                                          <input id="gender" name="gender" type="text" class="form-control" placeholder="Gender here!">
-                                                    </div>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">Costumer Information</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-header">
+                    <strong class="card-title">Personal Information</strong>
+                </div><br/>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <aside class="profile-nav alt">
+                            <section class="card">
+                                <div class="card-header user-header alt bg-dark">
+                                    <div class="media">
+                                        <a href="#">
+                                            <img class="align-self-center rounded-circle mr-3" style="width:125px; height:135px;" alt="" src="images/admin.jpg">
+                                        </a>
+                                        <div class="media-body">
+                                            <h2 class="text-light display-6">Jim Doe</h2>
+                                            <p>Project Manager <br/>09304895235<br/>Birthday</p>
                                         </div>
                                     </div>
-
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
+                                </div>
+                            </section>
+                        </aside>
+                     </div>
+                    <div class="col-sm-6">
+                        <input type="hidden" id="viewid" name="viewid">
+                        <input id="name" name="name" type="text" class="form-control" value="Email Address"><br/>
+                        <input id="user_address" name="user_address" type="text" class="form-control" value="Permanent Address"><br/>
+                        <input id="user_edu" name="user_edu" type="text" class="form-control" value="High Educational Attainment">
+                    </div>                         
+                </div>
+                <div class="row">
+                     <div class="col-sm-6">
+                        <label></label>
+                          <input id="user_mobile" name="user_mobile" type="text" class="form-control" placeholder="Telephone/Mobile Number here!">
+                          <label></label>
+                          <input id="user_status" name="user_tatus" type="text" class="form-control" placeholder="Civil Status here!">
+                    </div>
+                     <div class="col-sm-6">
+                        <label></label>
+                          <input id="user_age" name="user_age" type="text" class="form-control" placeholder="Age here!">
+                        <label></label>
+                          <input id="user_gender" name="user_gender" type="text" class="form-control" placeholder="Gender here!">
+                    </div>
                     </div>
                 </div>
-<!-- end modal view -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- end modal view -->
 
- <!-- modal approved -->
+<!-- modal approved -->
 <div class="modal fade" id="approved" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="mediumModalLabel">Approved Account</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">Approved Account</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="approve.php" method="post">
+                <div class="modal-body">
+                <input type="hidden" id="viewid1" name="viewid1">
+                <p align="center">Are you sure? You want to approved this Account?</p>
 
-                                
-                                        <p align="center">Are you sure? You want to approved this Account?</p>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">YES</button>
-                                             <button type="button" class="btn btn-danger" data-dismiss="modal">NO</button>
-                                        </div>
-                            </div>
-                                                         
-                        </div>
-                    </div>
+                <div class="modal-footer">
+                      <button type="submit" name="approve" class="btn btn-secondary">YES</button>  
+                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>
                 </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!-- end modal approved -->
 
 <!-- modal reject -->
 <div class="modal fade" id="reject" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="mediumModalLabel">Approved Account</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">Approved Account</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="reject.php" method="post">
+                <div class="modal-body">
 
-                                
-                                        <p align="center">Are you sure? You want to Reject this Account?</p>
+                <input type="hidden" id="viewid2" name="viewid2">
+                <p align="center">Are you sure? You want to Reject this Account?</p>
 
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">YES</button>
-                                             <button type="button" class="btn btn-danger" data-dismiss="modal">NO</button>
-                                        </div>
-                            </div>
-                                                         
-                        </div>
-                    </div>
+                <div class="modal-footer">
+                    <button type="submit" name="reject" class="btn btn-secondary">YES</button>
+                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>
                 </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!-- end modal reject -->
 
-<!-- modal deletet -->
+<!-- modal delete -->
 <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="mediumModalLabel">Approved Account</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">Approved Account</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="delete.php" method="post">
+                 <div class="modal-body">
 
-                                
-                                        <p align="center">Are you sure? You want to Delete this Account?</p>
+                        <input type="hidden" id="viewid3" name="viewid3">
+                        <p align="center">Are you sure? You want to Delete this Account?</p>
 
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">YES</button>
-                                             <button type="button" class="btn btn-danger" data-dismiss="modal">NO</button>
-                                        </div>
-                            </div>
-                                                         
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-secondary" name="delete">YES</button>
+                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">NO</button>
                         </div>
-                    </div>
                 </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!-- end modal delete -->
 
 <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
@@ -572,114 +464,75 @@ require_once "../php/database.php";
                             <div class="modal-body">
 
                                 
-                                         <form action="">
+                        <form action="add-user.php" method="post">
                             <div class="card-header">
                                 <strong class="card-title">Personal Information</strong>
                             </div><br/>
                             <div class="row">
-                                        <div class="col-sm-3">
-                                              <label for="lname" class="control-label mb-1">Lastname*</label>
-                                              <input id="lname" name="lname" type="text" class="form-control" placeholder="Lastname here!">
+                                        <div class="col-sm-4">
+                                              <label for="lname" class="control-label mb-1">Lastname</label>
+                                              <input id="lname" name="lname" type="text" class="form-control" placeholder="Lastname">
                                         </div>
-                                         <div class="col-sm-3">
+                                         <div class="col-sm-4">
                                               <label for="fname" class="control-label mb-1">Firstname</label>
-                                              <input id="fname" name="fname" type="text" class="form-control" placeholder="Firstname here!">
+                                              <input id="fname" name="fname" type="text" class="form-control" placeholder="Firstname">
                                         </div>
-                                         <div class="col-sm-3">
+                                         <div class="col-sm-4">
                                               <label for="mname" class="control-label mb-1">Middle Name</label>
-                                              <input id="mname" name="mname" type="text" class="form-control" placeholder="Middlename here!">
+                                              <input id="mname" name="mname" type="text" class="form-control" placeholder="Middlename">
                                         </div>
-                                        <!--  <div class="col-sm-3">
-                                              <label for="mname" class="control-label mb-1">Catteg</label>
-                                              <input id="mname" name="mname" type="text" class="form-control" placeholder="Middlename here!">
-                                        </div> -->
+                                                                    
+                            </div>
+                            <div class="row">
+                                        <div class="col-sm-6">
+                                              <label for="bday" class="control-label mb-1">Date of Birth</label>
+                                              <input id="bday" name="bday" type="date" class="form-control" placeholder="Birthday">
+                                        </div>
+                                         <div class="col-sm-6">
+                                              <label for="t_number" class="control-label mb-1">Telephone/Mobile Number</label>
+                                              <input id="m_number" name="m_number" type="text" class="form-control" placeholder="Telephone/Mobile Number">
+                                        </div>
+                            </div>
 
-                                             <div class="col-sm-3">
-                                                <label for="select" class="control-label mb-1">Categories</label>
-                                                    <select name="select" id="select" class="form-control">
-                                                        <option value="0">Please select</option>
-                                                        <option value="atm">ATM</option>
-                                                        <option value="sps">SPS</option>
-                                                        <option value="spsv1">SPSV1</option>
-                                                    </select>
-                                            </div>
-
+                            <div class="row">
+                                        <div class="col-sm-4">
+                                              <label for="lname" class="control-label mb-1">Email Address</label>
+                                              <input id="email" name="email" type="text" class="form-control" placeholder="Lastname">
+                                        </div>
+                                         <div class="col-sm-4">
+                                              <label for="fname" class="control-label mb-1">Password</label>
+                                              <input id="password" name="password" type="password" class="form-control" placeholder="Password">
+                                        </div>
+                                        <div class="col-sm-4">
+                                              <label for="type" class="control-label mb-1">User Type</label>
+                                              <select class="form-control" id="type" name="type">
+                                                  <option value="Admin">Admin</option>
+                                                  <option value="Branch Manager">Branch Manager</option>
+                                                  <option value="Staff">Staff</option>
+                                              </select>
+                                        </div>
+                                         <div class="col-sm-4">
+                                              <label for="mname" class="control-label mb-1">Age</label>
+                                              <input id="age" name="age" type="text" class="form-control" placeholder="Age">
+                                        </div>
                                                                     
                             </div>
 
                             <div class="row">
-                                        <div class="col-sm-6">
-                                              <label for="p_address" class="control-label mb-1">Permanent Address</label>
-                                              <input id="p_address" name="p_address" type="text" class="form-control" placeholder="Permanent Address here!">
+                                        <div class="col-sm-8">
+                                               <label for="father" class="control-label mb-1">Permanent Address</label>
+                                              <input id="address" name="address" type="text" class="form-control" placeholder="Address">
+
+                                               <label for="spouse" class="control-label mb-1">Highest Education Attainment</label>
+                                              <input id="edu" name="edu" type="text" class="form-control" placeholder="Highest Educational Attainment">
                                         </div>
-                                         <div class="col-sm-6">
-                                              <label for="e_address" class="control-label mb-1">Email Address</label>
-                                              <input id="e_address" name="e_address" type="text" class="form-control" placeholder="Email Address here!">
+                                         <div class="col-sm-4">
+                                              <label for="t_number" class="control-label mb-1">Gender</label>
+                                              <input id="gender" name="gender" type="text" class="form-control" placeholder="Gender">
+                                              <label for="bday" class="control-label mb-1">Civil Status</label>
+                                              <input id="civil" name="civil" type="text" class="form-control" placeholder="Civil Status">
                                         </div>
                             </div>
-
-                            <div class="row">
-                                        <div class="col-sm-4">
-                                              <label for="bday" class="control-label mb-1">Date of Birth</label>
-                                              <input id="bday" name="bday" type="text" class="form-control" placeholder="Birthday here!">
-                                        </div>
-                                         <div class="col-sm-4">
-                                              <label for="t_number" class="control-label mb-1">Telephone/Mobile Number</label>
-                                              <input id="t_number" name="t_number" type="text" class="form-control" placeholder="Telephone/Mobile Number here!">
-                                        </div>
-                                         <div class="col-sm-4">
-                                              <label for="id_card" class="control-label mb-1">ID Card Number</label>
-                                              <input id="id_card" name="id_card" type="text" class="form-control" placeholder="ID Card Number here!">
-                                        </div>
-                            </div>
-
-                            <div class="row">
-                                        <div class="col-sm-6">
-                                              <label for="mother" class="control-label mb-1">Mother's Name</label>
-                                              <input id="mother" name="mother" type="text" class="form-control" placeholder="Mother's Name here!">
-                                               <label for="father" class="control-label mb-1">Father's Name</label>
-                                              <input id="father" name="father" type="text" class="form-control" placeholder="Father's Name here!">
-                                               <label for="spouse" class="control-label mb-1">Name of Spouse</label>
-                                              <input id="spouse" name="spouse" type="text" class="form-control" placeholder="Name of Spouse here!">
-                                        </div>
-                                        <div class="col-sm-6">
-                                              <label for="c_person" class="control-label mb-1">Contact Person</label>
-                                              <input id="c_person" name="c_person" type="text" class="form-control" placeholder="Contact Person here!">
-                                               <label for="contact" class="control-label mb-1">Contact Number</label>
-                                              <input id="contact" name="contact" type="text" class="form-control" placeholder="Contact Number here!">
-                                               <label for="s_number" class="control-label mb-1">Spouse Contact Number</label>
-                                              <input id="s_number" name="s_number" type="text" class="form-control" placeholder="Spouse Contact Number here!">
-                                        </div>  
-                            </div><br/>
-
-                            <div class="card-header">
-                                <strong class="card-title">Company Information</strong>
-                            </div><br/>
-                            <div class="row">
-                                        <div class="col-sm-4">
-                                              <label for="c_affiliated" class="control-label mb-1">Company Affiliated With</label>
-                                              <input id="c_affiliated" name="c_affiliated" type="text" class="form-control" placeholder="Lastname here!">
-                                        </div>
-                                         <div class="col-sm-4">
-                                              <label for="c_address" class="control-label mb-1">Company Address</label>
-                                              <input id="c_address" name="c_address" type="text" class="form-control" placeholder="Firstname here!">
-                                        </div>
-                                         <div class="col-sm-4">
-                                              <label for="c_number" class="control-label mb-1">Company Contact Number</label>
-                                              <input id="c_number" name="c_number" type="text" class="form-control" placeholder="Middlename here!">
-                                        </div>
-                            </div>
-
-                             <div class="row">
-                                        <div class="col-sm-6">
-                                              <label for="position" class="control-label mb-1">Position/Occupation</label>
-                                              <input id="position" name="position" type="text" class="form-control" placeholder="Permanent Address here!">
-                                        </div>
-                                         <div class="col-sm-6">
-                                              <label for="w_status" class="control-label mb-1">Work Status</label>
-                                              <input id="w_status" name="w_status" type="text" class="form-control" placeholder="Email Address here!">
-                                        </div>
-                            </div><br/>
 
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary btn-sm" style="">
@@ -695,7 +548,129 @@ require_once "../php/database.php";
                         </div>
                     </div>
                 </div>
+
 <!-- end modal delete -->
+
+<!--Details Modal-->
+  <div class="modal fade" id="modal-det">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3><b>Account Details</b></h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+        <div class="modal-body">
+          <form action="edit_users.php" method="post">
+            <fieldset id="tableFieldset" disabled>
+              <div class="mb-3">
+                <?php
+                $records = mysqli_query($config, "select * from user_info where acc_no = '{$_SESSION['uid']}'");
+
+                $data = mysqli_fetch_array($records);
+                ?>
+                <label class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" value="<?php echo $data['name'] ?>" placeholder="Enter First Name">
+                <label class="form-label">Position</label>
+                <input type="text" name="position" class="form-control" value="<?php echo $data['position'] ?>" placeholder="Enter Last Name">
+                <label class="form-label">Contact No.</label>
+                <input type="text" name="user_mobile" class="form-control" value="<?php echo $data['user_mobile'] ?>" placeholder="Enter Last Name">
+                <br>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
+  <script src="../js/bootstrap.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.viewbtn').on('click', function() {
+
+        $('#view').modal('show');
+
+
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+          return $(this).text();
+
+
+        }).get();
+
+        console.log(data);
+        $('#viewid').val(data[0]);
+        $('#name').val(data[1]);
+        $('#user_address').val(data[2]);
+        $('#user_edu').val(data[3]);
+        $('#user_mobile').val(data[4]);
+        $('#user_status').val(data[5]);
+        $('#user_age').val(data[6]);
+        $('#user_gender').val(data[7]);
+      })
+    });
+
+    $(document).ready(function() {
+      $('.approvebtn').on('click', function() {
+
+        $('#approve').modal('show');
+
+
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+          return $(this).text();
+
+
+        }).get();
+
+        console.log(data);
+        $('#viewid1').val(data[0]);
+      })
+    });
+
+    $(document).ready(function() {
+      $('.rejectbtn').on('click', function() {
+
+        $('#reject').modal('show');
+
+
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+          return $(this).text();
+
+
+        }).get();
+
+        console.log(data);
+        $('#viewid2').val(data[0]);
+      })
+    });
+
+    $(document).ready(function() {
+      $('.deletebtn').on('click', function() {
+
+        $('#delete').modal('show');
+
+
+        $tr = $(this).closest('tr');
+
+        var data = $tr.children("td").map(function() {
+          return $(this).text();
+
+
+        }).get();
+
+        console.log(data);
+        $('#viewid3').val(data[0]);
+      })
+    });
+</script>
 
 
 </body>

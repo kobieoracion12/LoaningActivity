@@ -6,7 +6,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
     $email = mysqli_real_escape_string($config,$_POST["email"]);
     $password = mysqli_real_escape_string($config,$_POST["password"]);
 
-    $sql = "SELECT acc_no FROM acc_info WHERE email = '$email' AND password = '$password'";
+    $sql = "SELECT acc_no FROM acc_cred WHERE email = '$email' AND password = '$password'";
     $result = mysqli_query($config, $sql);
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
@@ -14,16 +14,18 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $uid = $row['acc_no'];
     
+    $_SESSION['email'] = $email;
     $_SESSION['uid'] = $uid;
 
     if($count == 1) {
 
         $userdata = mysqli_query($config, "SELECT * FROM user_info WHERE acc_no = '$uid'");
 
-           while($rows = mysqli_fetch_array($userdata)) {
+            while($rows = mysqli_fetch_array($userdata)) {
               $_SESSION['name'] = $rows['name'];
               $_SESSION['position'] = $rows['position'];
               $_SESSION["loggedin"] = true;
+              $_SESSION['acc_no'] = $rows['acc_no'];
            }
 
         $query = mysqli_query($config, "SELECT position FROM user_info WHERE acc_no = '$uid'");
